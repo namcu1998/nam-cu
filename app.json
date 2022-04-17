@@ -4,9 +4,9 @@
     "slug": "namcu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon.png",
+    "icon": "./assets/icons/ic.png",
     "splash": {
-      "image": "./assets/icons/splash.png",
+      "image": "./assets/images/image3.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,9 +21,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/ic.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.namcu.namcu",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/icons/favicon.png"
