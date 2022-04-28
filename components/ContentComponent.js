@@ -9,10 +9,13 @@ export default class ContentComponent extends React.Component {
 	  return (
 	      <View 
 	        style={{
-	          paddingTop: SIZES.padding, 
+	          padding: SIZES.padding / 2, 
 	          width: '45%',
 	          //justtifyContent: 'center',
-	          alignItems: 'center'
+	          alignItems: 'center',
+            backgroundColor: "white",
+            borderRadius: SIZES.padding / 2,
+            margin: SIZES.padding / 3
 	          }}
           >
           <Image
@@ -23,8 +26,8 @@ export default class ContentComponent extends React.Component {
               height: 25,
             }}
           />
-          <Text style={{color: 'white'}}>{name}</Text>
-          <Text style={{...FONTS.h2, color: 'white'}}>{value}{unit ? unit_name : ""}</Text>
+          <Text style={{color: 'black'}}>{name}</Text>
+          <Text style={{...FONTS.h2, color: 'black'}}>{value}{unit ? unit_name : ""}</Text>
          </View>
       );
     }

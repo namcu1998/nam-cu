@@ -88,7 +88,7 @@ export default class LoadingAnimation extends React.Component {
           position: 'absolute',
           top: x,
           left: y,
-          zIndex: 0,
+          zIndex: 10000,
           transform: [
             {
               translateY: -50

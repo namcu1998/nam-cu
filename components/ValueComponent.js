@@ -15,46 +15,50 @@ export default class ValueComponent extends React.Component {
             //   totalValue,
             // })}
 				    style={{
-				      backgroundColor: '#ffffff50',
-				      borderWidth: 2,
-				      borderColor: '#ffffff50',
+				      backgroundColor: 'white',
+				      borderColor: 'white',
 				      borderRadius: SIZES.radius,
+					  borderWidth: 0,
 				      width: 160,
-				      paddingVertical: SIZES.padding,
-				      paddingHorizontal: SIZES.padding,
+				      paddingVertical: SIZES.padding / 2,
+				      paddingHorizontal: SIZES.padding / 2,
 				      margin: 5
 				    }}
 				  >
 				    <View
 				      style={{
 				        flexDirection: 'row',
-				        alignItems: 'center'
+				        alignItems: 'center',
+						justifyContent: 'space-between'
 				      }}
 				    >
-				      <Image
-				        source={icon}
-				        resizeMode='contain'
-				        style={{
-				          height: 18,
-				          width: 18,
-				          tintColor: 'white'
-				        }}
-				      /> 
+				      <View style={{
+						  flex: 0.3
+					  }}>
+						<Image
+							source={icon}
+							resizeMode='contain'
+							style={{
+							height: 25,
+							width: 25,
+							tintColor: 'black'
+							}}
+						/> 
+					  </View>
 				      <View
 				        style={{
-				          marginLeft: SIZES.base
+						  flex: 0.7
 				        }}
 				      >
-				        <Text style={{...FONTS.h3, color: '#fff'}}>{name}</Text>
-				        <Text style={{...FONTS.h4, color: '#fff'}}>{time}</Text>
+				        <Text style={{...FONTS.h3, color: '#000'}}>{name}</Text>
+				        <Text style={{...FONTS.h4, color: '#000'}}>{time}</Text>
 				      </View>
 				    </View>
-				    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-				      <Text style={{...FONTS.h2, color: '#fff'}}>{value}{value < 10000 ? unit : null}</Text>
-				      
+				    <View style={{paddingTop: SIZES.padding, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+				      <Text style={{...FONTS.h1, color: '#000', fontWeight: 'bold'}}>{value}{value < 10000 ? unit : null}</Text>
 				    </View>
-				    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-				      <Text style={{color: COLORS.white, ...FONTS.h4}}>{before_value}{unit} | {surplusValue > 0 ? `+${surplusValue}${unit}` : `${surplusValue}${unit}`}</Text>
+				    <View style={{ paddingTop: SIZES.padding, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
+				      <Text style={{color: COLORS.black, ...FONTS.h4}}>{before_value}{unit} | {surplusValue > 0 ? `+${surplusValue}${unit}` : `${surplusValue}${unit}`}</Text>
 				      {
 				        valueState === "UP" ? <View
 				          style={{
@@ -68,6 +72,12 @@ export default class ValueComponent extends React.Component {
 				        <LottieView
     	            source={lottiefiles.upState}
     	            autoPlay
+					colorFilters={[
+						{
+						  keypath: 'loop',
+						  color: '#000',
+						}
+					  ]}
                   loop
                   style={{
                     width: 50,
@@ -89,6 +99,12 @@ export default class ValueComponent extends React.Component {
                   <LottieView
     	            source={lottiefiles.upState}
     	            autoPlay
+					colorFilters={[
+						{
+						  keypath: 'button',
+						  color: '#000',
+						}
+					  ]}
                   loop
                   style={{
                     width: 50,
