@@ -16,22 +16,18 @@ export default class ValueComponent extends React.Component {
       valueState,
       surplusValue,
       navigation,
+      onPress
     } = this.props;
     return (
       <TouchableOpacity
         activeOpacity={1}
-        // onPress={() => navigation.navigate('Detail', {
-        //   value,
-        //   name,
-        //   unit,
-        //   totalValue,
-        // })}
+        onPress={() => onPress()}
         style={{
           backgroundColor: "white",
           borderColor: "white",
           borderRadius: SIZES.radius,
           borderWidth: 0,
-          width: 160,
+          width: 300,
           paddingVertical: SIZES.padding / 2,
           paddingHorizontal: SIZES.padding / 2,
           margin: 10,
@@ -42,6 +38,8 @@ export default class ValueComponent extends React.Component {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
+            width: '100%',
+            // backgroundColor: 'blue'
           }}
         >
           <View
@@ -61,7 +59,7 @@ export default class ValueComponent extends React.Component {
           </View>
           <View
             style={{
-              flex: 0.7,
+              // flex: 0.7,
             }}
           >
             <Text style={{ ...FONTS.h3, color: "#000" }}>{name}</Text>
@@ -76,7 +74,7 @@ export default class ValueComponent extends React.Component {
             justifyContent: "center",
           }}
         >
-          <Text style={{ ...FONTS.h1, color: "#000", fontWeight: "bold" }}>
+          <Text style={{ ...FONTS.vndi01, fontSize: 40 , color: "#000" }}>
             {value}
             {value < 10000 ? unit : null}
           </Text>
@@ -86,7 +84,7 @@ export default class ValueComponent extends React.Component {
             paddingTop: SIZES.padding,
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
           }}
         >
           <Text style={{ color: COLORS.black, ...FONTS.h4 }}>

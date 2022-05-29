@@ -2,6 +2,14 @@ import { Dimensions, StatusBar } from 'react-native';
   
 const { width, height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight * 2;
+import useFont from '../useFont';
+
+const LoadFont = async () => {
+  await useFont();
+}
+
+LoadFont();
+
 export const COLORS = {
   //base colors
   white: "#fff",
@@ -34,53 +42,26 @@ export const SIZES = {
 };
 
 export const FONTS = {
-  h1: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.h1,
-    fontWeight: 'bold',
-    lineHeight: 36
+  vndi01: {
+    fontFamily: 'vndi01',
   },
-  h2: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.h2,
-    fontWeight: 'bold',
-    lineHeight: 30
+  vndi02: {
+    fontFamily: 'vndi02'
   },
-  h3: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.h3,
-    fontWeight: 'bold',
-    lineHeight: 22
+  Roboto_Black: {
+    fontFamily: 'Roboto_Black'
   },
-  h4: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.h4,
-    fontWeight: 'bold',
-    lineHeight: 22
+  Roboto_BlackItalic: {
+    fontFamily: 'Roboto_BlackItalic'
   },
-  body1: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.body1,
-    fontWeight: 'bold',
-    lineHeight: 36
+  Roboto_Bold: {
+    fontFamily: 'Roboto_Bold'
   },
-  body2: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.body2,
-    fontWeight: 'bold',
-    lineHeight: 30
+  Roboto_BoldItalic: {
+    fontFamily: 'Roboto_BoldItalic'
   },
-  body3: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.body3,
-    fontWeight: 'bold',
-    lineHeight: 22
-  },
-  body4: {
-    fontFamily: 'sans-serif',
-    fontSize: SIZES.body4,
-    fontWeight: 'bold',
-    lineHeight: 22
+  Pacifico: {
+    fontFamily: 'Pacifico'
   }
 }
 
@@ -91,3 +72,4 @@ const theme = {
 };
 
 export default theme;
+

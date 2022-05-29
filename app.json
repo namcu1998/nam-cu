@@ -5,31 +5,42 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/ic.png",
-    "splash": {
-      "image": "./assets/images/image1.jpg",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/ic.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./local/assets/sound/ZURQ2FE-notification.mkv"
+          ]
+        }
+      ]
     ],
-    "ios": {
-      "supportsTablet": true
+  "splash": {
+    "image": "./assets/images/Splash_page.png",
+    "resizeMode": "cover",
+    "backgroundColor": "#ffffff"
+  },
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "ios": {
+    "supportsTablet": true
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/icons/ic.png",
+      "backgroundColor": "#FFFFFF"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/ic.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.namcu.namcu",
-      "versionCode": 1
-    },
-    "web": {
-      
-      "favicon": "./assets/icons/favicon.png"
-    }
+    "package": "com.namcu.namcu",
+    "versionCode": 1
+  },
+  "web": {
+    "favicon": "./assets/icons/favicon.png"
   }
+}
 }

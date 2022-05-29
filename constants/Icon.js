@@ -12,6 +12,10 @@ const stop_watch = require("../assets/icons/stopwatch.png");
 const working_time = require("../assets/icons/work-process.png");
 const air_icon = require("../assets/icons/air-quality.png");
 const add_icon = require("../assets/icons/add.png");
+const recycle = require('../assets/icons/delete.png');
+const setting_icon = require('../assets/icons/setting-lines.png');
+const remove_icon = require('../assets/icons/minus.png');
+const network_poor = require('../assets/icons/network-signal.png');
 
 export default {
   temperature,
@@ -28,4 +32,8 @@ export default {
   stop_watch,
   air_icon,
   add_icon,
+  recycle,
+  setting_icon,
+  remove_icon,
+  network_poor
 };
