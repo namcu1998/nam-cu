@@ -63,12 +63,12 @@ export class DetailScreen extends Component {
             before_value={item2.before_value}
             icon={icons[item2.id]}
             onPress={() => {
-              gotoChartScreen(data.sensor[index].data[index2]);
+              // gotoChartScreen(data);
             }}
           /> 
           </View> : <View key={item2.id.toString()}>
             <VictoryChart 
-              domain={{y: [0, item2.current_value + 10]}}
+              domain={{y: [0, item2.current_value === item2.maxValue ? item2.maxValue + 10 : item2.maxValue]}}
               animate={{ duration: 500 }}
               theme={VictoryTheme.material}
             >

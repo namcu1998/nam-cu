@@ -21,6 +21,7 @@ import io from "socket.io-client";
 import LottieView from "lottie-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Network from "expo-network";
+import PagerView from "react-native-pager-view";
 
 let socket;
 export class HomeScreen extends Component {
@@ -49,15 +50,34 @@ export class HomeScreen extends Component {
           id: 3,
           path: require("../assets/images/wp7823331-anime-transparent-wallpapers.png"),
         },
+        {
+          id: 4,
+          path: require("../assets/images/IMG_20220602_204713.jpg"),
+        },
+        {
+          id: 5,
+          path: require("../assets/images/IMG_20220606_235039.jpg"),
+        },
+        {
+          id: 6,
+          path: require("../assets/images/IMG_20220606_235423.jpg"),
+        },
+        {
+          id: 7,
+          path: {uri: 'https://mfiles.alphacoders.com/781/781524.jpg'},
+        },
       ],
       image_background: require("../assets/images/image3.png"),
-      show_card: false,
+      numberOfPage: 0,
       network_state: true,
       number_pass: 23051998,
+      job_information: {},
+      changePage: true
     };
   }
 
   componentDidMount() {
+    this.gd();
     socket = io("https://nam-cu.herokuapp.com/web_app");
     socket.on("all_data", (data) => {
       this.setState({
@@ -89,11 +109,15 @@ export class HomeScreen extends Component {
       });
       schedulePushNotification("Ngắt kết nối", "No internet");
     }
+
+    this.unsubscribe = this.props.navigation.addListener("focus", () => {
+      this.gd();
+    });
   }
 
-  // async componentWillUnmount() {
-  //   await unregisterForPushNotificationsAsync();
-  // }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
   scrollToTop = (id) => {
     this.state.data.map((item) => {
@@ -108,6 +132,19 @@ export class HomeScreen extends Component {
       await AsyncStorage.setItem("@background_id", value.toString());
     } catch (e) {
       // saving error
+    }
+  };
+
+  gd = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@job_information");
+      this.setState({
+        job_information: jsonValue != null ? JSON.parse(jsonValue) : {
+          Error: 'No data'
+        },
+      });
+    } catch (e) {
+      // error reading value
     }
   };
 
@@ -129,6 +166,7 @@ export class HomeScreen extends Component {
   };
 
   render() {
+
     const detele_card = (id) => {
       socket.emit("delete", id);
     };
@@ -141,7 +179,7 @@ export class HomeScreen extends Component {
           showsHorizontalScrollIndicator={false}
           style={[
             styles.card_container,
-            { display: this.state.show_card ? "flex" : "none" },
+            // { display: this.state.numberOfPage === 1 ? "flex" : "none" },
           ]}
           ref={(scroller) => {
             this[item.id] = scroller;
@@ -219,8 +257,88 @@ export class HomeScreen extends Component {
       );
     });
 
+    const renderJobInformation = () => {
+      const data = { ...this.state.job_information };
+      let elementArray = [];
+
+      for (var key in data) {
+        if (
+          data.hasOwnProperty(key) &&
+          data[key] !== "" &&
+          typeof data[key] !== "object"
+        ) {
+          elementArray.push(
+            <View
+              key={key}
+              style={{
+                alignItems: "center",
+                marginTop: 10,
+                justifyContent: "center",
+                backgroundColor: "green",
+                borderRadius: 20,
+                padding: 10
+              }}
+            >
+              <Text style={{ color: "#ffffff70" }}>{key}</Text>
+              <Text style={{ color: "white" }}>{data[key]}</Text>
+            </View>
+          );
+        } else {
+          // console.log(data[key])
+        }
+      }
+
+      return elementArray;
+    };
+
+    const renderMachineNeedHandle = () => {
+      if (this.state.job_information["machinelist"]) {
+        const data = [...this.state.job_information["machinelist"]];
+
+        return data.map((item, index) => {
+          return (
+            <ScrollView showsVerticalScrollIndicator={false} key={index.toString()}>
+              {renderAllElement(item)}
+            </ScrollView>
+          );
+        });
+      }
+    };
+
+    const renderAllElement = (data) => {
+      let elementArray = [];
+
+      for (var key in data) {
+        if (
+          data.hasOwnProperty(key) &&
+          data[key] !== "" &&
+          typeof data[key] !== "object"
+        ) {
+          elementArray.push(
+            <View
+              key={key}
+              style={{
+                alignItems: "center",
+                marginTop: 10,
+                justifyContent: "center",
+                backgroundColor: "green",
+                borderRadius: 20,
+                padding: 10
+              }}
+            >
+              <Text style={{ color: "#ffffff70" }}>{key}</Text>
+              <Text style={{ color: "white" }}>{data[key]}</Text>
+            </View>
+          );
+        }
+      }
+
+      return elementArray;
+    };
+
     return (
       <View style={styles.container}>
+
         <View
           style={{
             width: Dimensions.get("window").width,
@@ -237,6 +355,7 @@ export class HomeScreen extends Component {
             }}
           />
         </View>
+
         {this.state.show_setting && (
           <ScrollView
             style={styles.setting_view}
@@ -272,7 +391,9 @@ export class HomeScreen extends Component {
             })}
           </ScrollView>
         )}
+
         <View style={styles.header}>
+
           <LinearGradient
             colors={["#1DDE7D", "#72DFC5"]}
             start={{ x: 0.5, y: 0.0 }}
@@ -303,7 +424,29 @@ export class HomeScreen extends Component {
               <Image source={icons.add_icon} style={styles.icon} />
             </TouchableOpacity>
           </LinearGradient>
+
           <View style={{ flexDirection: "row" }}>
+
+            <LinearGradient
+              colors={["#1A73E9", "#6C92F4"]}
+              start={{ x: 0.5, y: 0.0 }}
+              style={[styles.setting_icon]}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate("Search");
+                }}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Image source={icons.search} style={styles.icon} />
+              </TouchableOpacity>
+            </LinearGradient>
+
             <LinearGradient
               colors={["#1A73E9", "#6C92F4"]}
               start={{ x: 0.5, y: 0.0 }}
@@ -323,6 +466,7 @@ export class HomeScreen extends Component {
                 <Image source={icons.network_poor} style={styles.icon} />
               </TouchableOpacity>
             </LinearGradient>
+
             <LinearGradient
               colors={["#1A73E9", "#6C92F4"]}
               start={{ x: 0.5, y: 0.0 }}
@@ -336,19 +480,23 @@ export class HomeScreen extends Component {
                   height: "100%",
                 }}
                 onPress={() => {
-                  this.setState({
-                    show_card: !this.state.show_card,
-                  });
+                  if (this.state.numberOfPage >= 2) {
+                    this.setState({
+                      numberOfPage: 0,
+                    });
+                  } else {
+                    this.setState({
+                      numberOfPage: this.state.numberOfPage + 1,
+                    });
+                  }
                 }}
               >
-                <Image
-                  source={
-                    this.state.show_card ? icons.remove_icon : icons.add_icon
-                  }
-                  style={styles.icon}
-                />
+                {this.state.numberOfPage === 0 && <Image source={icons.ic} resizeMode='contain' style={{width: 50, height: 50}}/>}
+                {this.state.numberOfPage !== 0 && <Text style={{ fontSize: 20, color: "white" }}>{this.state.numberOfPage}</Text>}
+
               </TouchableOpacity>
             </LinearGradient>
+
             <LinearGradient
               colors={["#1A73E9", "#6C92F4"]}
               start={{ x: 0.5, y: 0.0 }}
@@ -370,23 +518,52 @@ export class HomeScreen extends Component {
                 <Image source={icons.setting_icon} style={styles.icon} />
               </TouchableOpacity>
             </LinearGradient>
+
           </View>
         </View>
-        <View style={styles.body}>
-          {this.state.isLoading === false ? (
-            card
-          ) : (
-            <LottieView
-              source={lottiefiles.loading}
-              autoPlay
-              loop
-              style={{
-                width: 400,
-                height: 400,
-              }}
-            />
-          )}
-        </View>
+
+        {this.state.numberOfPage === 2 && (
+          <View style={{alignItems: 'flex-end', marginTop: 5}}>
+            <TouchableOpacity onPress={() => {this.setState({changePage: !this.state.changePage})}}>
+              <LinearGradient colors={["#1A73E9", "#6C92F4"]} style={{width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center'}}>
+                <Image source={icons.exchange} resizeMode="contain" style={{width: 25, height: 25, tintColor: 'white'}}/>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        )}
+        
+        {this.state.numberOfPage === 1 && (
+          <View style={styles.body_1}>
+            {this.state.isLoading === false ? (
+              card
+            ) : (
+              <LottieView
+                source={lottiefiles.loading}
+                autoPlay
+                loop
+                style={{
+                  width: 400,
+                  height: 400,
+                }}
+              />
+            )}
+          </View>
+        )}
+
+        {this.state.numberOfPage === 2 && this.state.changePage && (
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            style={styles.body_2}
+          >
+            {renderJobInformation()}
+          </ScrollView>
+        )}
+
+        {this.state.numberOfPage === 2 && this.state.changePage === false && (
+          <PagerView initialPage={0} style={{ flex: 1 }}>
+            {renderMachineNeedHandle()}
+          </PagerView>
+        )}
       </View>
     );
   }
@@ -425,11 +602,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 10,
+    overflow: 'hidden'
   },
-  body: {
+  body_1: {
     marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  body_2: {
+    flex: 1
   },
   card_container: {
     width: Dimensions.get("window").width - 60,

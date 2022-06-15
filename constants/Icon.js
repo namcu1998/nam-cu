@@ -16,6 +16,10 @@ const recycle = require('../assets/icons/delete.png');
 const setting_icon = require('../assets/icons/setting-lines.png');
 const remove_icon = require('../assets/icons/minus.png');
 const network_poor = require('../assets/icons/network-signal.png');
+const light_intensity = require('../assets/icons/light_intensity.png');
+const search = require('../assets/icons/search.png');
+const exchange = require('../assets/icons/exchange.png');
+const ic = require('../assets/icons/ic.png');
 
 export default {
   temperature,
@@ -35,5 +39,9 @@ export default {
   recycle,
   setting_icon,
   remove_icon,
-  network_poor
+  network_poor,
+  light_intensity,
+  search,
+  exchange,
+  ic
 };

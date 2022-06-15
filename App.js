@@ -13,11 +13,13 @@ export default class App extends React.Component {
     const Stack = createNativeStackNavigator();
       return (
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={screen.HomeScreen} />
             <Stack.Screen name="Register" component={screen.RegScreen} />
             <Stack.Screen name="Detail" component={screen.DetailScreen} />
             <Stack.Screen name="Chart" component={screen.ChartScreen} />
+            <Stack.Screen name="Search" component={screen.SearchScreen} />
+            <Stack.Screen name="SearchDetail" component={screen.SearchDetail} />
           </Stack.Navigator>
         </NavigationContainer>
       );

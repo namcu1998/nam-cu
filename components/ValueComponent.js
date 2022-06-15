@@ -53,7 +53,7 @@ export default class ValueComponent extends React.Component {
               style={{
                 height: 25,
                 width: 25,
-                tintColor: "black",
+                // tintColor: "white",
               }}
             />
           </View>
